@@ -1,4 +1,4 @@
-import Blog from "./components/Blog";
+import Blog from "./components/Site";
 import "./App.css";
 import { useEffect, useState } from "react";
 
@@ -26,14 +26,6 @@ function App() {
             " Something went wrong with getting your postion, please try again! :" +
               error
           );
-        },
-        (options) => {
-          const option = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0,
-          };
-          console.log(options);
         }
       );
     }

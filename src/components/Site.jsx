@@ -8,15 +8,11 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Header from "./Header";
-import MainFeaturedPost from "./MainFeaturedPost";
-import FeaturedPost from "./FeaturedPost";
 import Main from "./Main";
 import Sidebar from "./Sidebar";
 import Map from "./Map";
 import Footer from "./Footer";
-import post1 from "./blog-post.1.md";
-import post2 from "./blog-post.2.md";
-import post3 from "./blog-post.3.md";
+
 import { ContentContainer } from "./ContentContainer";
 
 const theme = createTheme({
@@ -89,8 +85,6 @@ const location = {
   lng: -122.08427,
 };
 
-const posts = [post1, post2, post3];
-
 export default function Blog({ lat, lng }) {
   return (
     <ThemeProvider theme={theme}>
@@ -101,7 +95,7 @@ export default function Blog({ lat, lng }) {
           sections={sections}
           theme={theme.palette.custom}
         />
-        <ContentContainer />
+        <ContentContainer lat={lat} lng={lng} />
       </Container>
       <Footer
         title="Rise Up ✊"

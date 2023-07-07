@@ -1,49 +1,39 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { wifiLocations, getDirections } from "../services/public-data";
 import GoogleMapReact from "google-map-react";
 
 import LocationPin from "./LocationPin";
 import "./Map.css";
 
-export default function Map({ zoomLevel, lat, lng }) {
-  const [locations, setLocations] = useState([]);
+export default function Map({ lat, lng, locations }) {
+  const [markers, setMarkers] = useState([]);
   useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await wifiLocations();
-      console.log(response.data);
-      setLocations(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    console.log(locations);
+    setMarkers(locations);
+  }, [locations]);
 
   return (
     <>
       <div className="map">
-        <h2 className="map-h2">Come Visit Us At Our Campus</h2>
-
+        <h2 className="map-h2">
+          Locations being shown, you may need to zoom out!
+        </h2>
+        {console.log(markers)}
         <div className="google-map">
           <GoogleMapReact
             bootstrapURLKeys={{
-              key: "",
+              key: process.env.REACT_APP_GMAPSAPI_KEY,
             }}
-            center={{ lat: lat, lng: lng }}
-            defaultZoom={zoomLevel}
+            defaultCenter={{ lat: lat, lng: lng }}
+            defaultZoom={19}
           >
-            {/* {locations.map((location, id) => (
-              <LocationPin
-                id={id}
-                lat={location.lat}
-                lng={location.lon}
-                text={location.location}
-              />
-            ))} */}
+            {markers.map(
+              (mark, id) => (
+                console.log(mark),
+                (<LocationPin id={id} lat={mark.lat} lng={mark.lon} />)
+              )
+            )}
           </GoogleMapReact>
         </div>
       </div>
